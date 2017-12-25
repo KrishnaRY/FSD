@@ -1,0 +1,67 @@
+addProject inputJson:
+------------------------
+Method:POST
+URL:http://localhost:8080/addProject
+
+ {
+ 
+        "project": "project1",
+        "start_Date": "12/12/2017",
+        "end_Date": "13/12/2017",
+        "priority":1,
+        "user_ID":1
+    }
+
+
+updateProject inputJson:
+------------------------
+Method:POST
+URL:http://localhost:8080/updateProject
+
+ {
+ 
+        "project": "project1",
+        "start_Date": "12/12/2017",
+        "end_Date": "13/12/2017",
+        "priority":2,
+        "user_ID":1
+    }
+   
+Suspend project
+------------------------
+Method:PUT
+URL:http://localhost:8080/suspendProject/{project_ID}
+
+
+
+
+ getAllProjects
+ ----------------------------------
+Method:Get
+URL:http://localhost:8080/projects
+
+[
+    {
+        "project_ID": 1,
+        "project": "project1",
+        "start_Date": "11/12/2017",
+        "end_Date": "12/12/2017",
+        "priority": 1,
+        "user_ID": 1
+    },
+    {
+        "project_ID": 2,
+        "project": "project1",
+        "start_Date": "11/12/2017",
+        "end_Date": "12/12/2017",
+        "priority": 2,
+        "user_ID": 1
+    }
+]
+
+
+
+
+
+
+

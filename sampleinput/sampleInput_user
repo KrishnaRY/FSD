@@ -1,0 +1,54 @@
+addUser inputJson:
+------------------------
+Method:POST
+URL:http://localhost:8080/addUser
+
+ {
+ 
+        "first_Name": "test",
+        "last_Name": "test last",
+        "employee_ID": "10111"
+    }
+
+
+updateUser inputJson:
+------------------------
+Method:POST
+URL:http://localhost:8080/updateUser
+
+ {
+        "user_ID": 1,
+        "first_Name": "test123",
+        "last_Name": "test last",
+        "employee_ID": "10111"
+ }
+ getAllUsers
+ ----------------------------------
+Method:Get
+URL:http://localhost:8080/users
+
+[
+    {
+        "user_ID": 1,
+        "first_Name": "test",
+        "last_Name": "test last",
+        "employee_ID": "10111"
+    },
+    {
+        "user_ID": 2,
+        "first_Name": "test first",
+        "last_Name": "last",
+        "employee_ID": "222222"
+    }
+]
+
+DeleteUser
+ ----------------------------------
+Method:delete
+URL:http://localhost:8080/delete/{user_ID}
+
+
+
+
+
+

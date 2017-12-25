@@ -75,7 +75,7 @@ public class UserRestControllerTest {
   public void deleteUser() throws Exception {
      mockMvc.perform(delete("/delete/1").contentType(MediaType.APPLICATION_JSON))
     .andExpect(status().isOk());
-    verify(userRepository).deleteUser(1l);
+    verify(userRepository).deleteUser(1);
   }
   
  
@@ -92,8 +92,8 @@ public class UserRestControllerTest {
   @Test
   public void test_get_all_success() throws Exception {
       List<User> users = Arrays.asList(
-              new User(1l, "Daenerys","Targaryen","12346"),
-              new User(2l, "John","Snow","12345")
+              new User(1, "Daenerys","Targaryen","12346"),
+              new User(2, "John","Snow","12345")
              );
       
       final String userJson = jsonTester.write(user).getJson();

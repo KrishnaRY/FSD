@@ -54,7 +54,7 @@ public class UserRestController {
   
   @RequestMapping(value="/delete/{user_ID}",method = RequestMethod.DELETE,
            produces="application/json")
-  public void deleteUser(@PathVariable("user_ID") long user_ID)
+  public void deleteUser(@PathVariable("user_ID") int user_ID)
   {
 	  userRepository.deleteUser(user_ID);
   }

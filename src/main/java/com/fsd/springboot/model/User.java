@@ -20,14 +20,14 @@ public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long user_ID;
+	private int user_ID;
 	private String first_Name;
 	private String last_Name;
 	private String employee_ID;
-	public Long getUser_ID() {
+	public int getUser_ID() {
 		return user_ID;
 	}
-	public void setUser_ID(Long user_ID) {
+	public void setUser_ID(int user_ID) {
 		this.user_ID = user_ID;
 	}
 	public String getFirst_Name() {
@@ -49,7 +49,7 @@ public class User implements Serializable {
 		this.employee_ID = employee_ID;
 	}
 
-public User(Long user_ID,String first_Name,String last_Name,String employee_ID){
+public User(int user_ID,String first_Name,String last_Name,String employee_ID){
 	this.user_ID= user_ID;
 	this.first_Name=first_Name;
 	this.last_Name=last_Name;

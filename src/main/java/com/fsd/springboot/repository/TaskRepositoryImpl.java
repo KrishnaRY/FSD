@@ -8,37 +8,38 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.fsd.springboot.model.Task;
 import com.fsd.springboot.model.User;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository {
+public class TaskRepositoryImpl implements TaskRepository {
 	 @PersistenceContext
 	    private EntityManager entityManager;
 	@Override
 	@Transactional
-	public void persist(final User user) {
-		entityManager.persist(user);
+	public void persist(final Task task) {
+		entityManager.persist(task);
 	}
 	@Override
-	public List<User> getAllUsers()
+	public List<Task> getAllTasks()
 		
 		{
-	        return entityManager.createQuery("select user from User user").getResultList();
+	        return entityManager.createQuery("select task from Task task").getResultList();
 	    }
 	
 	 @Override
 	 @Transactional
-	    public void updateUser(User user)
+	    public void updateTask(Task task)
 	    {
-	        entityManager.merge(user);
+	        entityManager.merge(task);
 	    }
-	 @Override
+	/* @Override
 	  @Transactional
 	    public void deleteUser(int user_ID)
 	    {
 		  User user = entityManager.find(User.class,user_ID);
 	        entityManager.remove(user);
 	    }
-
+*/
 }
 	 

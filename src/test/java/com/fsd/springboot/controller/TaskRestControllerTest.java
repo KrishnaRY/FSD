@@ -2,7 +2,6 @@ package com.fsd.springboot.controller;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,83 +30,90 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fsd.springboot.model.Project;
-import com.fsd.springboot.repository.ProjectRepository;
-import com.fsd.springboot.service.ProjectService;
+import com.fsd.springboot.model.Task;
+import com.fsd.springboot.repository.TaskRepository;
+import com.fsd.springboot.service.TaskService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ProjectRestController.class)
-public class ProjectRestControllerTest {
+@WebMvcTest(TaskRestController.class)
+public class TaskRestControllerTest {
 	 @Autowired private MockMvc mockMvc;
 
 	  @Autowired private ObjectMapper objectMapper;
 
-	  @MockBean private ProjectService projectService;
+	  @MockBean private TaskService taskctService;
 
-	  @MockBean private ProjectRepository projectRepository;
+	  @MockBean private TaskRepository taskRepository;
 
-	  private JacksonTester<Project> projectTester;
+	  private JacksonTester<Task> taskTester;
 
-	  private Project project;
+	  private Task task;
 	  private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(("dd/MM/yyyy"));
 
-	  private static final String PROJECT= "Project";
+	  private static final String TASK= "task";
+	  private static final int PARENT_ID=0;
+	  private static final int PROJCT_ID=1;
 	  private static final String START_DATE_STRING = "01/12/2020";
 	  private static final String END_DATE_STRING = "02/12/2020";
 	  private static final Date DATE_OF_START = parseDate(START_DATE_STRING);
 	  private static final Date DATE_OF_END = parseDate(END_DATE_STRING);
 	  private static final int PRIORITY = 1;
 	  private static final int USER_ID = 2;
+	  private static final String  STATUS="start";
 	  @Before
 	  public void setup() {
 	    JacksonTester.initFields(this, objectMapper);
-	    project = new Project();
+	    task = new Task();
 	  }
 
 	  @Test
-	  public void persistProject_IsValid_ProjectPersisted() throws Exception {
-	    final String projectDTOJson = projectTester.write(project).getJson();
-	    given(projectService.isValid(any(Project.class))).willReturn(true);
+	  public void persistTask_IsValid_TaskPersisted() throws Exception {
+	    final String taskJson = taskTester.write(task).getJson();
+	 //   given(taskctService.isValid(any(Project.class))).willReturn(true);
 	    mockMvc
-	        .perform(post("/addProject").content(projectDTOJson).contentType(APPLICATION_JSON_UTF8))
+	        .perform(post("/addTask").content(taskJson).contentType(APPLICATION_JSON_UTF8))
 	        .andExpect(status().isCreated());
-	    verify(projectRepository).persist(any(Project.class));
+	    verify(taskRepository).persist(any(Task.class));
 	  }
 	  
 	  
 	  
 	  
 	  @Test
-	  public void updateProject() throws Exception {
-	    final String projectJson = projectTester.write(project).getJson();
+	  public void updateTask() throws Exception {
+	    final String taskJson = taskTester.write(task).getJson();
 	       mockMvc
-	        .perform(post("/updateProject").content(projectJson).contentType(APPLICATION_JSON_UTF8))
+	        .perform(post("/updateTask").content(taskJson).contentType(APPLICATION_JSON_UTF8))
 	        .andExpect(status().isOk());
-	    verify(projectRepository).updateProject(any(Project.class));
+	    verify(taskRepository).updateTask(any(Task.class));
 	  }
 	  @Test
-	  public void test_get_all_Projects() throws Exception {
-	      List<Project> projects = Arrays.asList(
-	              new Project(1, "project1",DATE_OF_START,DATE_OF_END,1,1),
-	              new Project(2, "project2",DATE_OF_START,DATE_OF_END,2,2)
+	  public void test_get_all_Tasks() throws Exception {
+	      List<Task> tasks = Arrays.asList(
+	    		  new Task(1, PARENT_ID,  PROJCT_ID,  TASK,  DATE_OF_START,  DATE_OF_END,  3,  "sus", USER_ID),
+	    		  new Task(2,6,  5,  "tt",  DATE_OF_START,  DATE_OF_END,  PRIORITY,  STATUS, 2)
 	             );
 	      
-	      final String projectJson = projectTester.write(project).getJson();
+	      final String projectJson = taskTester.write(task).getJson();
 	      
-	      when(projectRepository.getAllProjects()).thenReturn(projects);
+	      when(taskRepository.getAllTasks()).thenReturn(tasks);
 
-	      mockMvc.perform(get("/projects").content(projectJson).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+	      mockMvc.perform(get("/tasks").content(projectJson).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
 	              .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].task_ID", is(1)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].task", is(TASK)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].priority", is(3)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].user_ID", is(2)))
 	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].project_ID", is(1)))
-	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].project", is("project1")))
-	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].priority", is(1)))
-	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].user_ID", is(1)))
-	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].project_ID", is(2)))
-	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].project", is("project2")))
-	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].priority", is(2)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[0].parent_ID", is(0)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].task_ID", is(2)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].task", is("tt")))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].priority", is(1)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].project_ID", is(5)))
+	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].parent_ID", is(6)))
 	              .andExpect(MockMvcResultMatchers.jsonPath("$[1].user_ID", is(2)));
 
-	      verify(projectRepository, times(1)).getAllProjects();
+	      verify(taskRepository, times(1)).getAllTasks();
 	   
 	  }
 	  private static Date parseDate(final String dateString) {

@@ -1,0 +1,74 @@
+addTask inputJson:
+------------------------
+Method:POST
+URL:http://localhost:8080/addTask
+
+ {
+ 
+        "parent_ID": 0,
+        "project_ID":1,
+        "task":"sample",
+        "start_Date": "12/12/2017",
+        "end_Date": "13/12/2017",
+        "priority":1,
+        "status":"start",
+        "user_ID":1
+    }
+  GetAllTasks inputJson:
+------------------------
+Method:GET
+   
+http://localhost:8080/tasks
+[
+    {
+        "task_ID": 1,
+        "parent_ID": 0,
+        "project_ID": 1,
+        "task": "sample",
+        "start_Date": "11/12/2017",
+        "end_Date": "12/12/2017",
+        "priority": 1,
+        "status": "start",
+        "user_ID": 1
+    },
+    {
+        "task_ID": 2,
+        "parent_ID": 1,
+        "project_ID": 2,
+        "task": "sample",
+        "start_Date": "11/12/2017",
+        "end_Date": "12/12/2017",
+        "priority": 1,
+        "status": "h",
+        "user_ID": 1
+    },
+    {
+        "task_ID": 3,
+        "parent_ID": 1,
+        "project_ID": 1,
+        "task": "sample",
+        "start_Date": "11/12/2017",
+        "end_Date": "12/12/2017",
+        "priority": 1,
+        "status": "h",
+        "user_ID": 1
+    }
+]
+
+updateTask inputJson:
+------------------------
+Method:post 
+URL:http://localhost:8080/updateTask
+
+   {
+        "task_ID": 3,
+        "parent_ID": 1,
+        "project_ID": 1,
+        "task": "sample put",
+        "start_Date": "11/12/2017",
+        "end_Date": "12/12/2017",
+        "priority": 1,
+        "status": "h",
+        "user_ID": 1
+    }
+   
