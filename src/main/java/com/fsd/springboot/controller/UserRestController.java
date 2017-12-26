@@ -45,17 +45,19 @@ public class UserRestController {
   
   @RequestMapping(value="/updateUser", method=RequestMethod.POST, 
           produces="application/json", consumes="application/json")
-  public void updateUser(@RequestBody User user)
+  public ResponseEntity<String> updateUser(@RequestBody User user)
   {
 	  userRepository.updateUser(user);
+	  return ResponseEntity.status(HttpStatus.OK).build();
   }
   
   /*** Delete a User ***/
   
   @RequestMapping(value="/delete/{user_ID}",method = RequestMethod.DELETE,
            produces="application/json")
-  public void deleteUser(@PathVariable("user_ID") int user_ID)
+  public ResponseEntity<String> deleteUser(@PathVariable("user_ID") int user_ID)
   {
 	  userRepository.deleteUser(user_ID);
+	  return ResponseEntity.status(HttpStatus.ACCEPTED).build();
   }
 }
