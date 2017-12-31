@@ -33,8 +33,9 @@ public class TaskRestController {
 	/*** Update a Project ***/
 
 	@RequestMapping(value = "/updateTask", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-	public void updateUser(@RequestBody Task task) {
+	public ResponseEntity<String> updateUser(@RequestBody Task task) {
 		taskRepository.updateTask(task);
+		 return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 	  /*** Retrieve all Tasks ***/

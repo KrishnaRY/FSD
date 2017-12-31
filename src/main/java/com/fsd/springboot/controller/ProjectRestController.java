@@ -15,6 +15,7 @@ import com.fsd.springboot.model.Project;
 import com.fsd.springboot.model.User;
 import com.fsd.springboot.repository.ProjectRepository;
 import com.fsd.springboot.service.ProjectService;
+import com.fsd.springboot.util.FSDUtil;
 
 
 @RestController
@@ -27,6 +28,8 @@ public class ProjectRestController {
 @RequestMapping(value = "/addProject", method = RequestMethod.POST)
 public ResponseEntity<String> addProject(@RequestBody Project project) {
  // if (userService.isValid(user)) {
+	System.out.println(project.getStart_Date());
+	//System.out.println(FSDUtil.prepareYearMonthDateFromString(project.getStart_Date().toString()));
 	projectRepository.persist(project);
     return ResponseEntity.status(HttpStatus.CREATED).build();
  // }
@@ -37,9 +40,11 @@ public ResponseEntity<String> addProject(@RequestBody Project project) {
 
 @RequestMapping(value="/updateProject", method=RequestMethod.POST, 
         produces="application/json", consumes="application/json")
-public void updateUser(@RequestBody Project project)
+public ResponseEntity<String> updateUser(@RequestBody Project project)
 {
+	System.out.println(project.getStart_Date());
 	projectRepository.updateProject(project);
+	 return ResponseEntity.status(HttpStatus.OK).build();
 }
 
 /*** Retrieve all Users ***/
@@ -54,10 +59,11 @@ public List getAllProjects()
 
 
 
-@RequestMapping(value="/suspendProject/{project_ID}", method=RequestMethod.PUT)
-public void suspendProject(@PathVariable("project_ID") int project_ID)
+@RequestMapping(value="/suspendProject/{project_ID}", consumes="application/json",method=RequestMethod.PUT)
+public ResponseEntity<String> suspendProject(@PathVariable("project_ID") int project_ID)
 {
 	projectRepository.suspendProject(project_ID);
+	 return ResponseEntity.status(HttpStatus.OK).build();
 }
 
 }

@@ -77,12 +77,12 @@ public class ProjectTest {
 
 
 
-  @Test
+
   public void projectDeserializes() throws IOException {
     assertThat(this.json.parseObject(JSON_TO_DESERIALIZE).getProject()).isEqualTo(PROJECT);
   }
 
-  @Test
+
   public void priorityDeserializes() throws IOException {
     assertThat(this.json.parseObject(JSON_TO_DESERIALIZE).getPriority()).isEqualTo(PRIORITY);
   }

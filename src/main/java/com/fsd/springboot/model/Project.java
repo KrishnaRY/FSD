@@ -19,10 +19,10 @@ public class Project implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int project_ID;
 	private String project;
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date start_Date;
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date end_Date;
 	private int priority;

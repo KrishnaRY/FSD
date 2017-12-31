@@ -58,6 +58,6 @@ public class UserRestController {
   public ResponseEntity<String> deleteUser(@PathVariable("user_ID") int user_ID)
   {
 	  userRepository.deleteUser(user_ID);
-	  return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+	  return ResponseEntity.status(HttpStatus.OK).build();
   }
 }
