@@ -6,8 +6,8 @@ URL:http://localhost:8080/addProject
  {
  
         "project": "Test Project",
-        "start_Date": "12/12/2017",
-        "end_Date": "13/12/2017",
+        "start_Date": "12 12 2017",
+        "end_Date": "13 12 2017",
         "priority":1,
         "user_ID":1
     }

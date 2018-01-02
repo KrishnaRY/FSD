@@ -56,5 +56,8 @@ CREATE  TABLE IF NOT EXISTS  TASK
 );
 
 
+insert into ParentTask(Parent_Task) values ('parent task1');
+
+
 
 
