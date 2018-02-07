@@ -34,6 +34,7 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 		query.setParameter(1, "suspend");
 		query.setParameter(2, project_ID);
 		query.executeUpdate();
+	
 		
 	}
 	@Override
